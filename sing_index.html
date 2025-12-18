@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Your Name | Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #0b1020;
+      --accent: #915eff;
+      --text: #f3f3f3;
+      --muted: #c0c0c0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1b1f3b 0, #050816 50%, #02010a 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    header {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.95rem;
+    }
+    nav ul { display: flex; gap: 1.25rem; list-style: none; font-size: 0.95rem; }
+    nav a { color: var(--muted); }
+    nav a:hover { color: var(--accent); }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    section {
+      padding: 3.5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    section:last-of-type { border-bottom: none; }
+
+    .section-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 0.35rem;
+    }
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 2rem;
+      align-items: center;
+      padding-top: 1rem;
+    }
+    .hero-title {
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .hero-text { color: var(--muted); margin-bottom: 1.75rem; max-width: 30rem; }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: transparent;
+      color: var(--text);
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #915eff, #4b34ff);
+      border-color: transparent;
+      box-shadow: 0 14px 40px rgba(145, 94, 255, 0.35);
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(1px); box-shadow: none; }
+
+    /* Hero image card (your photo) */
+    .hero-photo-card {
+  background: rgba(11, 16, 32, 0.9);
+  border-radius: 1.5rem;
+  padding: 1.2rem 1.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(22px);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.65);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.hero-photo {
+  width: 250px;
+  height: 250px;
+  border-radius: 1.2rem;
+  object-fit: cover;
+  border: 3px solid var(--accent);
+}
+
+.hero-card-content {
+  text-align: center;
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.hero-card-title {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+
+.hero-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.hero-role {
+  color: var(--accent);
+}
+
+.hero-meta {
+  display: grid;
+  gap: 0.2rem;
+  color: var(--muted);
+}
+
+    /* About */
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 0fr);
+      gap: 2rem;
+    }
+    .about-text { color: var(--muted); }
+    .about-highlight { color: var(--accent); font-weight: 600; }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-card {
+      background: var(--bg-alt);
+      border-radius: 1rem;
+      padding: 1.25rem 1.4rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .skill-title { font-weight: 600; margin-bottom: 0.25rem; }
+    .skill-meta { font-size: 0.9rem; color: var(--muted); }
+
+    /* Timeline */
+    .timeline {
+      border-left: 2px solid rgba(255, 255, 255, 0.1);
+      margin-top: 0.75rem;
+      padding-left: 1.5rem;
+    }
+    .timeline-item {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .timeline-item::before {
+      content: "";
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      background: var(--accent);
+      position: absolute;
+      left: -1.85rem;
+      top: 0.35rem;
+      box-shadow: 0 0 0 4px rgba(145, 94, 255, 0.3);
+    }
+    .timeline-title { font-weight: 600; }
+    .timeline-subtitle { font-size: 0.9rem; color: var(--muted); }
+
+    /* Portfolio */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--bg-alt);
+      border-radius: 1rem;
+      padding: 1.25rem 1.4rem 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .project-title { font-weight: 600; margin-bottom: 0.4rem; }
+    .project-desc { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .project-tags { font-size: 0.85rem; color: var(--accent); margin-bottom: 0.75rem; }
+    .project-links { display: flex; gap: 0.75rem; font-size: 0.9rem; }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 2rem;
+    }
+    .contact-info { color: var(--muted); }
+    form {
+      display: grid;
+      gap: 0.8rem;
+    }
+    input, textarea {
+      background: #050816;
+      border-radius: 0.6rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 0.7rem 0.9rem;
+      color: var(--text);
+      font: inherit;
+    }
+    textarea { min-height: 130px; resize: vertical; }
+    input::placeholder, textarea::placeholder { color: #777b8f; }
+    footer {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 3rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    @media (max-width: 900px) {
+      .hero, .about-grid, .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header { flex-direction: column; gap: 1rem; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- <div class="logo">Your Name</div>  -->
+    <div class="logo">Build • Automate • Scale</div>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#qualification">Journey</a></li>
+        <li><a href="#portfolio">Work</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section id="home">
+      <div class="hero">
+        <div>
+          <p class="section-label">Hi, my name is</p>
+          <h1 class="hero-title">Akhil Muraleedharan</h1>
+          <p class="hero-subtitle">Software Engineer | Infrastructure Automation | Full-Stack Development | Data Management</p>
+          <p class="hero-text">
+            I’m a Software Engineer with experience in full-stack development, infrastructure automation, and enterprise data management. I build scalable, user-focused web applications and automation solutions that reduce manual effort, improve operational efficiency, and support reliable systems. With a strong interest in AI and cybersecurity, I aim to contribute to future-ready technologies that drive meaningful business and technological impact.
+          </p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-primary">Contact me</a>
+            <a href="#portfolio" class="btn">View my work</a>
+          </div>
+        </div>
+
+        <!-- Your photo, NOT in header -->
+       <aside class="hero-photo-card">
+  <!-- Replace your-photo.jpg with your actual file -->
+  <img src="images/formal_4.jpeg" alt="Your Name" class="hero-photo" />
+
+  <div class="hero-card-content">
+    <div class="hero-card-title">Profile</div>
+    <!--<div class="hero-name">Your Name</div>-->
+    <!--<div class="hero-role">Frontend Developer</div>-->
+    <div class="hero-meta">
+      <span>Location: Bangalore, India | Dubai, United Arab Emirates</span>
+      <span>Experience: 2.5+ years in Software Engineering & Automation</span>
+      <span>Specialized in Python, Powershell, C, C++, Java, React and modern JS</span>
+    </div>
+  </div>
+</aside>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+      <p class="section-label">About me</p>
+      <h2 class="section-title">My introduction</h2>
+      <div class="about-grid">
+        <p class="about-text">
+          My journey into coding began with C and C++ right from school days, where I enjoyed solving problems and generating the required outputs efficiently. My interest in programming languages grew as I got to collaborate with a lot of my school peers in creating user friendly projects. 
+          
+          By the time I was in college, I kept up with developing and building simple full-stack web applications, spread my interest around Cybersecruity and Data Engineering. 
+          
+          It was in my professional journey that I gradually expanded into automation and data-focused systems along with development. Working in enterprise environments exposed me to real-world challenges, where I learned the value of writing reliable, scalable solutions that simplify complex operations.
+          I enjoy solving problems that reduce manual work, improve system efficiency, and enhance user experience. Currently, I’m focused on strengthening my expertise in development, automation, data management, and exploring AI and cybersecurity to stay aligned with future-driven technologies.
+        
+        </p>
+        <!--<p class="about-text">
+            Mention your <span class="about-highlight">key technologies</span> and any domains you care about, such as
+          dashboards, SaaS products, marketing sites, or internal tools.
+        </p>-->
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <p class="section-label">Skills</p>
+      <h2 class="section-title">My technical level</h2>
+      <div class="skills-grid">
+        <article class="skill-card">
+          <h3 class="skill-title">General Programming</h3>
+          <p class="skill-meta">More than 8 years • Python, C, C++, Java</p>
+        </article>
+        <article class="skill-card">
+          <h3 class="skill-title">Full-Stack Developer</h3>
+          <p class="skill-meta">More than 4 years • React, Node.js, REST APIs</p>
+        </article>
+        <article class="skill-card">
+          <h3 class="skill-title">Automation</h3>
+          <p class="skill-meta">More than 2 years • Powershell, Python</p>
+        </article>
+        <article class="skill-card">
+          <h3 class="skill-title">Data-Management</h3>
+          <p class="skill-meta">More than 2 years • Windows NAS, Cloud</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Qualification -->
+    <section id="qualification">
+      <p class="section-label">Qualification</p>
+      <h2 class="section-title">My personal journey</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h3 class="timeline-title">Higher Secondary (10th) - [2017]</h3>
+          <p class="timeline-subtitle">Our Own High School Al Warqa'a, Dubai, UAE</p>
+        </div>
+        <div class="timeline-item">
+          <h3 class="timeline-title">Senior Secondary (12th) - [2019]</h3>
+          <p class="timeline-subtitle">Our Own High School Al Warqa'a, Dubai, UAE</p>
+        </div>
+        <div class="timeline-item">
+          <h3 class="timeline-title">Bachelor of Technology in Computer Science Engineering - [2019-2023]</h3>
+          <p class="timeline-subtitle">National Institute of Technology Rourkela, India</p>
+        </div>
+        <div class="timeline-item">
+          <h3 class="timeline-title">Summer Intern - [MAY ‐ JULY 2022]</h3>
+          <p class="timeline-subtitle">Bajaj Finserv – Pune, India</p>
+        </div>
+        <div class="timeline-item">
+          <h3 class="timeline-title">Software Engineer - [AUGUST 2023 ‐ PRESENT]</h3>
+          <p class="timeline-subtitle">Societe Generale – Bangalore, India</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio -->
+    <section id="portfolio">
+      <p class="section-label">Portfolio</p>
+      <h2 class="section-title">My work</h2>
+      <div class="projects-grid">
+        <article class="project-card">
+          <h3 class="project-title">Public Health and Social Measures during COVID‐19</h3>
+          <p class="project-desc">
+            Course project built using a real‐world Kaggle dataset (Public Health and Social Measures), involving data parsing, cleaning, analysis, and visualization with Python libraries.
+          </p>
+          <p class="project-tags">NumPy • Pandas • Matplotlib • Seaborn</p>
+          <!--
+          <div class="project-links">
+            <a href="#" target="_blank" rel="noreferrer">Demo</a>
+            <a href="#" target="_blank" rel="noreferrer">Code</a>
+          </div>
+          -->
+        </article>
+
+        <article class="project-card">
+          <h3 class="project-title">Graph Capability for DMAM</h3>
+          <p class="project-desc">
+            This project involved checking the validity and capability of incorporating a graph on the DMAM data and in turn be utilized to solve a business use case surrounding the area of Digital Propensity by using advanced Python data Engineering tools and packages.
+          </p>
+          <p class="project-tags">Pyspark • Networkx • Numpy • Scipy • Seaborn • Matplotlib</p>
+          <!--
+          <div class="project-links">
+            <span>Not hosted</span>
+            <a href="#" target="_blank" rel="noreferrer">Code</a>
+          </div>
+        -->
+        </article>
+
+        <article class="project-card">
+          <h3 class="project-title">Applicative Drive Repository</h3>
+          <p class="project-desc">
+            A complete web application that functions as an interface to create, read, update and delete data with a Frontend designed with React, with a SQL-based backend implemented using Flask API to facilitate secure and efficient data exchange.
+          </p>
+          <p class="project-tags">React • FlaskAPI • SQL</p>
+          <!--
+          <div class="project-links">
+            <a href="#" target="_blank" rel="noreferrer">Demo</a>
+            <a href="#" target="_blank" rel="noreferrer">Code</a>
+          </div>
+        -->
+        </article>
+
+        <article class="project-card">
+          <h3 class="project-title">DFS Link Manager</h3>
+          <p class="project-desc">
+            An application that has a simple interface to manage DFS links in different shared drive regions, providing creating, searching, updating and deletion functionality.
+          </p>
+          <p class="project-tags">Powershell</p>
+          <!--
+          <div class="project-links">
+            <a href="#" target="_blank" rel="noreferrer">Demo</a>
+            <a href="#" target="_blank" rel="noreferrer">Code</a>
+          </div>
+        -->
+        </article>
+
+        <article class="project-card">
+          <h3 class="project-title">Share Drive Deletion Automation</h3>
+          <p class="project-desc">
+            An automation project where a script was developed to combine and automate all the manual procedures that involved in share drive deletion with logging features. Manual deletion of one share drive takes about 40 minutes, using the script finishes the process in under 5 minutes.
+          </p>
+          <p class="project-tags">Powershell</p>
+          <!--
+          <div class="project-links">
+            <a href="#" target="_blank" rel="noreferrer">Demo</a>
+            <a href="#" target="_blank" rel="noreferrer">Code</a>
+          </div>
+        -->
+        </article>
+
+        <article class="project-card">
+          <h3 class="project-title">Share Groups Anomaly Detection</h3>
+          <p class="project-desc">
+            An automation project which focused on scanning all the permissions on all drives in the NAS infra, capture the incorrect entries and then fixing those incorrect entries in each drive's ACL. The project comprised of three scripts, Scan, Validate and Remediate. The manual process would consume around 160 hours monthly, and these scripts efficiently saves alot of this time.
+          </p>
+          <p class="project-tags">Powershell</p>
+          <!--
+          <div class="project-links">
+            <a href="#" target="_blank" rel="noreferrer">Demo</a>
+            <a href="#" target="_blank" rel="noreferrer">Code</a>
+          </div>
+        -->
+        </article>
+
+        <article class="project-card">
+          <h3 class="project-title">Bulk Access Revocation</h3>
+          <p class="project-desc">
+            This script was developed to facilitate a wider project in SG where it was developed to revoke user accesses in cross domain which reduces the manual effort, time and human errors.
+          </p>
+          <p class="project-tags">Powershell</p>
+          <!--
+          <div class="project-links">
+            <a href="#" target="_blank" rel="noreferrer">Demo</a>
+            <a href="#" target="_blank" rel="noreferrer">Code</a>
+          </div>
+        -->
+        </article>
+
+        <article class="project-card">
+          <h3 class="project-title">RMS Scanner</h3>
+          <p class="project-desc">
+           This script centered aroun the use of Get-AIPFileStatus function to the track RMS protected-encrypted files in a much quicker way. The script uses runspaces and mult-jobs to scan around 163 shared drives in one region and record necessary details and stores it in an output csv file. The script was created for one project at first, and later was used for a second project proving its scalability. 
+          </p>
+          <p class="project-tags">Powershell</p>
+          <!--
+          <div class="project-links">
+            <a href="#" target="_blank" rel="noreferrer">Demo</a>
+            <a href="#" target="_blank" rel="noreferrer">Code</a>
+          </div>
+        -->
+        </article>
+
+        <article class="project-card">
+          <h3 class="project-title">Split-Compressor Migration Script</h3>
+          <p class="project-desc">
+            This script was ultimately designed to effectivley migrate and compress data at the same time using 7zip from the source location to a target admin server.
+          </p>
+          <p class="project-tags">Powershell</p>
+          <!--
+          <div class="project-links">
+            <a href="#" target="_blank" rel="noreferrer">Demo</a>
+            <a href="#" target="_blank" rel="noreferrer">Code</a>
+          </div>
+        -->
+        </article>
+
+        <article class="project-card">
+          <h3 class="project-title">Health Check Systems</h3>
+          <p class="project-desc">
+            This automation project was required to actively check the status of all our team's vital servers and resources. A pair of scripts were run on each server, where one performed scans twice a day and sent out emails, and the other scans after every 5 minute interval. The second script sends out warning notifications in case of any server that could be down or unresponsive.
+          </p>
+          <p class="project-tags">Powershell</p>
+          <!--
+          <div class="project-links">
+            <a href="#" target="_blank" rel="noreferrer">Demo</a>
+            <a href="#" target="_blank" rel="noreferrer">Code</a>
+          </div>
+        -->
+        </article>
+
+        <article class="project-card">
+          <h3 class="project-title">DFS Standalone Checker</h3>
+          <p class="project-desc">
+            This script was required to surveil and keep record of all the active connections made to particular DFS servers. The script was made to run for a complete 2 weeks period, and was crucial for a decomissioning project. 
+          </p>
+          <p class="project-tags">Powershell</p>
+          <!--
+          <div class="project-links">
+            <a href="#" target="_blank" rel="noreferrer">Demo</a>
+            <a href="#" target="_blank" rel="noreferrer">Code</a>
+          </div>
+        -->
+        </article>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <p class="section-label">Contact</p>
+      <h2 class="section-title">Get in touch</h2>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <p>
+            Have a question, want to work together, or just say hi? Drop a message using the form or email directly.
+          </p>
+          <p style="margin-top: 0.75rem;">
+            Email: <a href="mailto:akhilmurali0201@gmail.com">akhilmurali0201@gmail.com</a><br />
+            LinkedIn: <a href="https://www.linkedin.com/in/akhil-muraleedharan-b31a84208/" target="_blank" rel="noreferrer">Connect on LinkedIn</a>
+          </p>
+        </div>
+        <form
+          action="mailto:akhilmurali0201@gmail.com"
+          method="POST"
+          enctype="text/plain"
+        >
+        
+          <input type="text" name="name" placeholder="Your name" required />
+          <input type="email" name="email" placeholder="Your email" required />
+          <textarea name="message" placeholder="Your message" required></textarea>
+          <button class="btn btn-primary" type="submit">Send message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span id="year"></span> | Akhil Muraleedharan</span>
+    <span>Built with ♥ and HTML/CSS</span>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
