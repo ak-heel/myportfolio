@@ -21,6 +21,10 @@
     }
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
+    
+    html {
+     scroll-behavior: smooth;
+    }
 
     header {
       max-width: 1100px;
@@ -72,6 +76,21 @@
       gap: 2rem;
       align-items: center;
       padding-top: 1rem;
+    }
+
+    .hero {
+      animation: heroFade 0.9s ease-out forwards;
+    }
+
+   @keyframes heroFade {
+      from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+     }
     }
     .hero-title {
       font-size: 2.4rem;
@@ -262,6 +281,17 @@
       }
       header { flex-direction: column; gap: 1rem; align-items: flex-start; }
     }
+
+    section {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body>
@@ -299,7 +329,7 @@
         <!-- Your photo, NOT in header -->
        <aside class="hero-photo-card">
   <!-- Replace your-photo.jpg with your actual file -->
-  <img src="images/formal_4.jpeg" alt="Your Name" class="hero-photo" />
+  <img src="images/me.JPG" alt="Your Name" class="hero-photo" />
 
   <div class="hero-card-content">
     <div class="hero-card-title">Profile</div>
@@ -586,7 +616,22 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
+
+  <script>
+   const sections = document.querySelectorAll("section");
+
+   const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    },
+    { threshold: 0.15 }
+   );
+
+   sections.forEach(section => observer.observe(section));
+  </script>
 </body>
 </html>
-
-
