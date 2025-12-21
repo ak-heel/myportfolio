@@ -246,8 +246,20 @@
     .project-title { font-weight: 600; margin-bottom: 0.4rem; }
     .project-desc { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.5rem; }
     .project-tags { font-size: 0.85rem; color: var(--accent); margin-bottom: 0.75rem; }
-    .project-links { display: flex; gap: 0.75rem; font-size: 0.9rem; }
+    .project-links {
+     padding: 0.35rem 0.7rem;
+     border-radius: 999px;
+     background: rgba(255, 255, 255, 0.06);
+     color: var(--accent);
+     text-decoration: none;
+     border: 1px solid rgba(255, 255, 255, 0.08);
+     transition: background 0.2s ease, transform 0.15s ease;
+    }
 
+   .project-links:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-1px);
+  }
     /* Contact */
     .contact-grid {
       display: grid;
@@ -645,5 +657,6 @@
   </script>
 </body>
 </html>
+
 
 
